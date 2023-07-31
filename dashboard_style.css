@@ -1,0 +1,509 @@
+:root {
+    --background-color: rgb(214, 234, 251);
+    --accent-color: white;
+    --primary-dark-color: #568be0;
+    --primary-color: #8bb7e0;
+    
+    --font-color: white;
+    --heading-color: white;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    background-color: var(--background-color);
+    font-family: Verdana,sans-serif;
+    font-size: 0.8em;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+
+/* ********************** CONTAINER ******************** */
+.container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+/* ********************** HEADER *********************** */
+
+.header {
+    height: 130px;
+    width: 100%;
+}
+
+
+.header > .heading {
+    height: 80px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: var(--primary-dark-color);
+
+    background-image: url("images/heading-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header > .heading > .layer {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    top: 0;
+    left: 0;
+    background-color: #00000075;
+}
+
+.header > .heading h2 {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+.header > .content-heading {
+    height: 50px;
+    background-color: var(--primary-dark-color);
+    padding: 0px 20px;
+    box-sizing: border-box;
+    align-items: center;
+    color: var(--heading-color);
+}
+
+
+/* **************** CONTENT-HEADING ****************** */
+.content-heading > .title {
+    flex: 4;
+}
+
+.content-heading > .title > h3 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.content-heading > .actions {
+    column-gap: 15px;
+    flex: 1;
+    transition: flex 0.1s ease;
+}
+
+.content-heading > .actions.selection-mode {
+    flex: 1.2;
+}
+
+/* ***************** HEADING - ACTIONS  ******************** */
+.action-button {
+    cursor: pointer;
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+}
+
+.action-button > img {
+    height: 23px;
+    width: 23px;
+}
+
+.action-button.filter:focus-within .filter-options {
+    visibility: visible;
+}
+
+.filter-options {
+    position: absolute;
+    background-color: white;
+    color: black;
+
+    padding: 5px;
+    margin-left: -20px;
+    border-radius: 5px;
+    width: min-content;
+    height: min-content;
+    visibility: hidden;
+    z-index: 10;
+}
+
+.filter-options ul{
+    list-style-type: none;
+    white-space: nowrap;
+}
+
+.filter-options > ul {
+    margin: 0;
+    padding: 0;
+}
+
+.action-button.select-all, .action-button.assign-selected-work {
+    display: none;
+}
+
+.action-button.assign-selected-work.show, .action-button.select-all.show {
+    display: inline;
+}
+
+/* ********************** MAIN CONTENT ******************** */
+
+.main-content {
+    height: 85%;
+    width: 100%;
+}
+
+.grid {
+    padding: 10px 10px 50px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 230px;
+    max-height: 100%;
+
+}
+
+#notification-container {
+    height: 100%;
+    width: 15%;
+    float: right;
+    background-color: var(--primary-color);
+}
+
+#notification-container > .title {
+    text-align: center;
+}
+
+
+/* ********************** LIGHT-GRID-ITEM ******************** */
+
+.light, .ldr {
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+    color: #000;
+    background-color: white;
+    box-shadow: 1px 1px 5px gray;
+    display: flex;
+    overflow: hidden;
+    margin: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.light.hide {
+    height: 0;
+    width: 0;
+    margin: 0;
+}
+
+.light-details, .ldr-details {
+    flex: 1;
+    padding: 0px 5px 0.5rem 5px;
+}
+
+.light-icon-container, .ldr-icon-container {
+    flex: 3;
+    position: relative;
+    justify-content: center;
+    display: flex;
+}
+
+.light-icon, .ldr-icon {
+    width: auto;
+    height: 100%;
+    position: absolute;
+    padding: 10px 0px;
+    box-sizing: border-box;
+}
+
+.light-selector {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 1.1rem;
+    height: 1.1rem;
+
+    visibility: hidden;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px 10px 0px 0px;
+    opacity: 0.6;
+    position: absolute;
+}
+
+.assign-work {
+    outline: none;
+    border: none;
+    background-color: #000000;
+    box-shadow: -1px -1px 3px;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-radius: 5px 0px 0px 0px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+    visibility: hidden;
+}
+
+.assign-work img {
+    width: 23px;
+    height: 23px;
+}
+
+
+/* .light-condition, .ligt-state {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+} */
+
+
+
+.light h3,p, .ldr h3 {
+    margin: 0px 0px;
+    display: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.light span {
+    margin: 0px 3px;
+
+    display: inherit;
+}
+
+
+
+
+
+
+.light.not-working .overlay, .ldr.fault .overlay {
+    background-color: red;
+}
+
+.light.assigned-for-maintainance .overlay {
+    background-color: orange;
+}
+
+.light.assigned-for-maintainance .light-condition {
+    color: orange;
+}
+
+
+
+.light.under-maintainance .overlay {
+    background-color: yellow;
+}
+
+.light.under-maintainance .light-condition {
+    color: rgb(174, 172, 9);
+}
+
+.seperator {
+    color: gray;
+}
+
+.light.working-on .light-state,
+.light.working .light-condition,
+.ldr.working .ldr-condition {
+    color: #09c009;
+}
+
+.light.working-off .light-state,
+.light.assigned-for-maintainance .light-state,
+.light.under-maintainance .light-state,
+.light.not-working .light-condition,
+.light.not-working .light-state,
+.ldr.fault .ldr-condition {
+    color: red;
+}
+
+.under-maintainance {
+    color: rgb(6, 3, 1);
+}
+
+
+#processing-request-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background-color: var(--primary-color);
+    color: white;
+
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+}
+
+#processing-request-view.show {
+    opacity: 0.75;
+    visibility: visible;
+}
+
+#processing-request-view.success {
+    color: green;
+}
+
+#processing-request-view.failed {
+    color: red;
+}
+
+
+
+#drawer {
+    float: left;
+    background-color: var(--primary-color);
+    width: 15%;
+    height: 100%;
+}
+
+#drawer h2,#notification-container h2{
+    margin-left: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#drawer ul, #notification-container ul  {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.street-list li,.complaint-list li {
+    list-style-type: none;
+    padding: 3px 3px 3px 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.street-list li button {
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    padding: 3px;
+    width: 100%;
+    text-align: start;
+
+    font-size: 1.2rem;
+}
+
+.street-list li.selected {
+    background-color: var(--primary-dark-color);
+    color: var(--font-color);
+}
+
+#notification {
+    width: 300px;
+    height: 130px;
+    border-radius: 1.1rem;
+    display: flex;
+    position: absolute;
+    bottom: 25px;
+    right: 15px;
+    background-color: white;
+    box-shadow: -1px -1px 5px gray;
+    transition: all 0.3s ease;
+    
+    transform: translateY(180px);
+}
+
+.faulty-light {
+    padding: 0px 10px;
+    align-items: center;
+}
+
+.faulty-light:hover {
+    background-color: #fefdfd32;
+}
+
+#notification.show {
+    transform: translateY(0px);
+}
+
+#notification-content, .faulty-light-name {
+    flex: 4;
+}
+
+.locate-button {
+    height: min-content;
+    width: min-content;
+    padding: 3px;
+    flex: 1;
+    background-color: var(--primary-dark-color);
+    text-align: center;
+}
+
+.faulty-light a {
+    text-decoration: none;
+    color: white;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+button img {
+    width: 21px;
+    height: 21px;
+}
+
+h1 {
+    margin-left: 20px;
+}
+
+.flex {
+    display: flex;
+}
+
+.display-inherit {
+    display: inherit;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.mar-v3 {
+    margin: 3px 0px;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.overflow-y-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.wh-100 {
+    width: 100%;
+    height: 100%;
+}
+
+.mh-100 {
+    max-height: 100%;
+}

@@ -1,0 +1,1 @@
+var faultyLightsClass = "not-working";

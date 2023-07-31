@@ -1,0 +1,12 @@
+
+.lights.grid.selection-mode .light.not-working .light-selector {
+    visibility: visible;
+}
+
+.lights.grid.selection-mode .assign-work {
+    visibility: hidden;
+}
+
+.light.not-working .assign-work {
+    visibility: inherit;
+}

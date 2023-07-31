@@ -1,0 +1,64 @@
+
+.lights.grid.selection-mode .light.assigned-for-maintainance .light-selector {
+    visibility: visible;
+}
+
+.lights.grid.selection-mode .assign-work {
+    visibility: hidden;
+}
+
+.light.assigned-for-maintainance .assign-work {
+    visibility: inherit;
+}
+
+/*.no-assigned-work {*/
+/*    font-size: 1.1rem;*/
+/*    text-align: center;*/
+/*    visibility: hidden;*/
+/*}*/
+
+/*.no-assigned-work.show {*/
+/*    visibility: visible;*/
+/*}*/
+
+/*.complaint-list.hide {*/
+/*    visibility: hidden;*/
+/*}*/
+
+/*.complaint-list li {*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
+
+/*.complaint-list li a{*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    text-decoration: none;*/
+/*    color: black;*/
+/*    background-color: transparent;*/
+/*    padding: 10px;*/
+/*}*/
+
+/*.complaint-list li a:hover{*/
+/*    background-color: #568be0;*/
+/*    color: white;*/
+/*}*/
+
+.refresh-button {
+    background-color: transparent;
+    border: none;
+}
+
+#notification-container h2 {
+    flex: 4;
+}
+
+#notification-container button {
+    flex: 1;
+}
+
+#notification-container button img {
+    width: 23px;
+    height: 23px;
+}

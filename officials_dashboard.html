@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard -Officials</title>
+
+    <link rel="stylesheet" href="dashboard_style.css">
+    <link rel="stylesheet" href="officials_dashboard_style.css">
+    
+    <script src="officials_preload.js"></script>
+    <script src="dashbord_script.js" differ></script>
+    <script src="officials_dashboard_script.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="heading flex">
+                <div class="layer"></div>
+                <div>
+                    <h2 onclick="startIntervals()">STREET LIGHT MANAGEMENT</h2>
+                </div>
+            </div>
+            <div class="content-heading flex">
+                <div class="title">
+                    <h3>DASHBOARD</h3>
+                </div>
+                <div class="actions flex">
+                    <div class="action-button filter" tabindex="1" >
+                        <img src="svgs/filter-icon.svg" alt="filter" title="Filter">
+                        <div class="filter-options">
+                            <ul>
+                                <li><input class="filter-option filter-all" type="checkbox" name="filter-all" onchange="onFilterOptionAllToggle(this.checked)" checked> All</li>
+                                <hr>
+                                <li><input class="filter-option filter-working" type="checkbox" name="filter-working" onchange="onFilterOptionWorkingToggle(this.checked)" checked> Working
+                                    <ul>
+                                        <li><input class="filter-option filter-working-on" type="checkbox" name="filter-working-on" onchange="onFilterChange(this.name, this.checked)" checked> On</li>
+                                        <li><input class="filter-option filter-working-off" type="checkbox" name="filter-working-off" onchange="onFilterChange(this.name, this.checked)" checked> Off</li>
+                                    </ul>
+                                </li>
+
+                                <li><input class="filter-option filter-assigned-for-maintainance" type="checkbox" name="filter-assigned-for-maintainance" onchange="onFilterChange(this.name, this.checked)" checked> Assigned for maitainance</li>
+                                <li><input class="filter-option filter-under-maintainance" type="checkbox" name="filter-under-maintainance" onchange="onFilterChange(this.name, this.checked)" checked> Under maitainance</li>
+                                <li><input class="filter-option filter-not-working" type="checkbox" name="filter-not-working" onchange="onFilterChange(this.name, this.checked)" checked> Not working</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex gap-10">
+                        <button class="action-button assign-selected-work" onclick="prepareAndUpdateLightState()" >
+                            <img src="svgs/assign-work.svg" alt="asign" title="Asign">
+                        </button>
+                        <button class="action-button select-all" onclick="toggleAllLightsForMaintainance()" >
+                            <img src="svgs/select-all-icon.svg" alt="select-all" title="Select all">
+                        </button>
+                        <button class="action-button select" onclick="toggleSelectionMode()" >
+                            <img src="svgs/select-icon.svg" alt="select" title="Select">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+
+            <div id="drawer">
+                <h2>Junctions</h2>
+                <ul class="street-list">
+                    <li data-id='C1' class="selected"><button onclick="changeStreet(this)" >Junction 1</button> </li>
+                     <li data-id='C2'><button onclick="changeStreet(this)">Junction 2</button> </li>
+                    <!--<li><button onclick="changeStreet(this)">Street 3</button> </li>-->
+                    <!--<li><button onclick="changeStreet(this)">Street 4</button> </li> -->
+                </ul>
+            </div>
+            <div id="notification-container">
+                <h2>Faulty lights</h2>
+                <ul class="faulty-light-list">
+                    <div class="flex faulty-light">
+                        <!--<h4 class="faulty-light-name">Light 1</h4>-->
+                        <!--<button onclick="console.log('Assigned')"><img src="svgs/assign-work.svg" alt="assign" title="Assign"></button>-->
+                        <!--<div class="locate-button"><a target="_blank" title="Location" href="#">Locate</a></div>-->
+                    </div>
+                </ul>
+            </div>
+            <div class="mh-100 overflow-y-scroll flex column">
+                <h1>Lights</h1>
+                <div class="lights overflow-y-scroll grid"></div>
+                <h1>LDRs</h1>
+                <div class="ldrs grid"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="processing-request-view">
+        <h3>
+            Processing please wait...
+        </h3>
+    </div>
+
+    <div id="notification" class="flex faulty-light">
+        <div id="notification-content" class="flex column">
+            <h3 id="notification-title"></h3>
+            <p id="notification-message"></p>
+        </div>
+        <div id="notification-locate" class="locate-button"><a target="_blank">Locate</a></div>
+    </div>
+
+    <!-- templates -->
+    <template id="faulty-light-list-item">
+        <div class="flex faulty-light">
+            <h4 class="faulty-light-name">Light 1</h4>
+            <button onclick="sendForMaintainance(this.parentNode.getAttribute('data-id'))"><img src="svgs/assign-work.svg" alt="assign" title="Assign"></button>
+            <div class="locate-button"><a target="_blank" title="Location" href="#">Locate</a></div>
+        </div>
+    </template>
+    
+    <template id="light-template">
+        <div class="light column">
+            <div class="light-icon-container">
+                <img class="light-icon" src="#" alt="light-image">
+                <div class="overlay"></div>
+                <input type="checkbox" class="light-selector" name="light-selector" onchange="onLightSelectorToggle(this, this.checked)">
+                <button class="assign-work" onclick="sendForMaintainance(this.parentNode.parentNode.id)">
+                    <img src="svgs/assign-work.svg" alt="assign-work" title="Assign for repairing">
+                </button>
+            </div>
+            <div class="light-details display-inherit column">
+                <div class="display-inherit mar-v3">
+                    <h3 name="light-name" class="light-name">Light1</h3>
+                    <span class="seperator">&#9679</span>
+                    <p name="light-state" class="light-state">off</p>
+                </div>
+                <p name="light-condition" class="light-condition">working</p>
+            </div>
+        </div>
+    </template>
+
+    <template id="ldr-template">
+        <div class="ldr column">
+            <div class="ldr-icon-container">
+                <img class="ldr-icon" src="images/ldr.png" alt="ldr-image">
+                <div class="overlay"></div>
+                <!-- <input type="checkbox" class="ldr-selector" name="light-selector" onchange="onLightSelectorToggle(this, this.checked)"> -->
+                <!-- <button class="assign-work" onclick="sendForMaintainance(this)">
+                    <img src="svgs/assign-work.svg" alt="assign-work" title="Assign for repairing">
+                </button> -->
+            </div>
+            <div class="ldr-details display-inherit column">
+                <div class="display-inherit mar-v3">
+                    <h3 name="ldr-name" class="ldr-name">LDR 1</h3>
+                </div>
+                <p name="ldr-condition" class="ldr-condition">Working</p>
+            </div>
+        </div>
+    </template>
+</body>
+
+</html>
